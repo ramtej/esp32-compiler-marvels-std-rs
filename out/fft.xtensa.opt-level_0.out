@@ -1,0 +1,37 @@
+arch[xtensa]:hypot.abs_difference = 0.000000000
+arch[xtensa]:microfft.samples[0] = 0
+arch[xtensa]:microfft.samples[1] = 0.92387956
+arch[xtensa]:microfft.samples[2] = 0.70710677
+arch[xtensa]:microfft.samples[3] = -0.38268343
+arch[xtensa]:microfft.samples[4] = -1
+arch[xtensa]:microfft.samples[5] = -0.38268343
+arch[xtensa]:microfft.samples[6] = 0.7071068
+arch[xtensa]:microfft.samples[7] = 0.9238794
+arch[xtensa]:microfft.samples[8] = -0.000000023849761
+arch[xtensa]:microfft.samples[9] = -0.9238794
+arch[xtensa]:microfft.samples[10] = -0.70710677
+arch[xtensa]:microfft.samples[11] = 0.3826839
+arch[xtensa]:microfft.samples[12] = 1
+arch[xtensa]:microfft.samples[13] = 0.38268384
+arch[xtensa]:microfft.samples[14] = -0.7071075
+arch[xtensa]:microfft.samples[15] = -0.9238793
+arch[xtensa]:microfft.amplitudes[0] = 0
+arch[xtensa]:microfft.amplitudes[1] = 0
+arch[xtensa]:microfft.amplitudes[2] = 0
+arch[xtensa]:microfft.amplitudes[3] = 8
+arch[xtensa]:microfft.amplitudes[4] = 0
+arch[xtensa]:microfft.amplitudes[5] = 1
+arch[xtensa]:microfft.amplitudes[6] = 0
+arch[xtensa]:microfft.amplitudes[7] = 0
+Guru Meditation Error: Core  0 panic'ed (LoadProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x42098bfc  PS      : 0x00060930  A0      : 0x8037ff21  A1      : 0x3fca36f0
+0x42098bfc - _reclaim_reent
+    at /builds/idf/crosstool-NG/.build/xtensa-esp32s3-elf/src/newlib/newlib/libc/reent/reent.c:64
+0x00060930 - _esp_mmu_block_size
+    at ??:??
+0x8037ff21 - _coredump_rtc_fast_start
+    at ??:??
+0x3fca36f0 - _nimble_common_end
+
