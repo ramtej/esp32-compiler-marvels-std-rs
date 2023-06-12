@@ -93,6 +93,10 @@ fn test_microfft() {
     let spectrum = microfft::real::rfft_16(&mut samples);
     spectrum[0].im = 0.0;
 
+    for (i, v) in spectrum.iter().enumerate() {
+        println!("arch[{}]:microfft.spectrum[{}] = {}", ARCH, i, v);
+    }
+
     // the spectrum has a spike at index `signal_freq`
     let amplitudes: Vec<_> = spectrum.iter().map(|c| c.norm() as u32).collect();
     for (i, v) in amplitudes.iter().enumerate() {
@@ -156,4 +160,5 @@ fn main() {
     }
     test_microfft();
     test_realfft();
+    loop {}
 }

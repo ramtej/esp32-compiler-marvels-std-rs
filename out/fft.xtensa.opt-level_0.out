@@ -15,6 +15,14 @@ arch[xtensa]:microfft.samples[12] = 1
 arch[xtensa]:microfft.samples[13] = 0.38268384
 arch[xtensa]:microfft.samples[14] = -0.7071075
 arch[xtensa]:microfft.samples[15] = -0.9238793
+arch[xtensa]:microfft.spectrum[0] = 0.00000045298742+0i
+arch[xtensa]:microfft.spectrum[1] = -0.00000032270378+0.00000030293245i
+arch[xtensa]:microfft.spectrum[2] = -0.0000004874651-0.0000007820916i
+arch[xtensa]:microfft.spectrum[3] = 0.00000051896365-8i
+arch[xtensa]:microfft.spectrum[4] = 0.00000063180136-0.000000059604645i
+arch[xtensa]:microfft.spectrum[5] = 0.00000043471067-1.1715735i
+arch[xtensa]:microfft.spectrum[6] = 0.00000043976556-0.0000011192665i
+arch[xtensa]:microfft.spectrum[7] = -0.0000006309706+0.0000001660742i
 arch[xtensa]:microfft.amplitudes[0] = 0
 arch[xtensa]:microfft.amplitudes[1] = 0
 arch[xtensa]:microfft.amplitudes[2] = 0
@@ -23,15 +31,37 @@ arch[xtensa]:microfft.amplitudes[4] = 0
 arch[xtensa]:microfft.amplitudes[5] = 1
 arch[xtensa]:microfft.amplitudes[6] = 0
 arch[xtensa]:microfft.amplitudes[7] = 0
-Guru Meditation Error: Core  0 panic'ed (LoadProhibited). Exception was unhandled.
-
-Core  0 register dump:
-PC      : 0x42098bfc  PS      : 0x00060930  A0      : 0x8037ff21  A1      : 0x3fca36f0
-0x42098bfc - _reclaim_reent
-    at /builds/idf/crosstool-NG/.build/xtensa-esp32s3-elf/src/newlib/newlib/libc/reent/reent.c:64
-0x00060930 - _esp_mmu_block_size
-    at ??:??
-0x8037ff21 - _coredump_rtc_fast_start
-    at ??:??
-0x3fca36f0 - _nimble_common_end
-
+arch[xtensa]:realfft.samples[0] = 0
+arch[xtensa]:realfft.samples[1] = 0.92387956
+arch[xtensa]:realfft.samples[2] = 0.70710677
+arch[xtensa]:realfft.samples[3] = -0.38268343
+arch[xtensa]:realfft.samples[4] = -1
+arch[xtensa]:realfft.samples[5] = -0.38268343
+arch[xtensa]:realfft.samples[6] = 0.7071068
+arch[xtensa]:realfft.samples[7] = 0.9238794
+arch[xtensa]:realfft.samples[8] = -0.000000023849761
+arch[xtensa]:realfft.samples[9] = -0.9238794
+arch[xtensa]:realfft.samples[10] = -0.70710677
+arch[xtensa]:realfft.samples[11] = 0.3826839
+arch[xtensa]:realfft.samples[12] = 1
+arch[xtensa]:realfft.samples[13] = 0.38268384
+arch[xtensa]:realfft.samples[14] = -0.7071075
+arch[xtensa]:realfft.samples[15] = -0.9238793
+arch[xtensa]:realfft.spectrum[0] = 0.00000045298742+0i
+arch[xtensa]:realfft.spectrum[1] = -0.0000003114081+0.00000037523193i
+arch[xtensa]:realfft.spectrum[2] = -0.00000048746506-0.00000078209166i
+arch[xtensa]:realfft.spectrum[3] = 0.00000059604645-8i
+arch[xtensa]:realfft.spectrum[4] = 0.00000063180136-0.000000059604645i
+arch[xtensa]:realfft.spectrum[5] = 0.00000035762787+0.00000071525574i
+arch[xtensa]:realfft.spectrum[6] = 0.00000043976556+0.0000005292105i
+arch[xtensa]:realfft.spectrum[7] = -0.0000007018709+0.0000014630167i
+arch[xtensa]:realfft.spectrum[8] = -0.000001811989+0i
+arch[xtensa]:realfft.amplitudes[0] = 0
+arch[xtensa]:realfft.amplitudes[1] = 0
+arch[xtensa]:realfft.amplitudes[2] = 0
+arch[xtensa]:realfft.amplitudes[3] = 8
+arch[xtensa]:realfft.amplitudes[4] = 0
+arch[xtensa]:realfft.amplitudes[5] = 0
+arch[xtensa]:realfft.amplitudes[6] = 0
+arch[xtensa]:realfft.amplitudes[7] = 0
+arch[xtensa]:realfft.amplitudes[8] = 0
