@@ -1,0 +1,39 @@
+[package]
+name = "bench"
+version = "0.1.0"
+authors = ["Jan Teske <jteske@posteo.net>"]
+edition = "2018"
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.6"
+panic-semihosting = "0.5"
+
+[dependencies.hal]
+version = "0.6"
+package = "stm32f3xx-hal"
+features = ["stm32f303xc"]
+
+[dependencies.microfft]
+path = ".."
+default-features = false
+
+[profile.release]
+codegen-units = 1
+lto = true
+
+[features]
+microfft-c = []
+microfft-i = []
+microfft-r = []
+n-4 = ["microfft/size-4"]
+n-8 = ["microfft/size-8"]
+n-16 = ["microfft/size-16"]
+n-32 = ["microfft/size-32"]
+n-64 = ["microfft/size-64"]
+n-128 = ["microfft/size-128"]
+n-256 = ["microfft/size-256"]
+n-512 = ["microfft/size-512"]
+n-1024 = ["microfft/size-1024"]
+n-2048 = ["microfft/size-2048"]
+n-4096 = ["microfft/size-4096"]

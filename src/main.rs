@@ -1,5 +1,6 @@
 #[cfg(feature = "target-esp32-none-elf")]
 use esp_idf_sys as _;
+use num_complex::Complex32;
 use std::convert::TryInto;
 use std::f32::consts::PI;
 
@@ -36,6 +37,63 @@ fn test_hypot() {
         prec = 9
     );
     assert!(abs_difference < 1e-10);
+}
+
+/// Mimics https://gitlab.com/teskje/microfft-rs/-/blame/master/src/impls/cfft.rs#L48
+/// Simulates a single layer of the FFT (Fast Fourier Transform) butterfly computations,
+/// and it seems the issues arise from the complex number arithmetic.
+pub fn test_compute_butterflies() {
+    // some arbitrary complex f32 numbers
+    let mut x: Vec<Complex32> = vec![
+        Complex32::new(0.0, 0.9238795),
+        Complex32::new(-0.000000023849761, -0.9238794),
+        Complex32::new(-1.0, -0.38268343),
+        Complex32::new(1.0, 0.38268384),
+    ];
+
+    let m = 2;
+    let u = m / 2;
+
+    // [k = 0] twiddle factor: `1 + 0i`
+    let (x_0, x_m) = (x[0], x[m]);
+    x[0] = x_0 + x_m;
+    x[m] = x_0 - x_m;
+
+    std::hint::black_box(&x);
+
+    // [k = m/2] twiddle factor: `0 - 1i`
+    let (x_u, x_um) = (x[u], x[u + m]);
+    let y = x_um * Complex32::new(0., -1.);
+    println!("arch[{}]:y = {}", ARCH, y); // < here is the issue!
+
+    x[u] = x_u + y;
+    x[u + m] = x_u - y;
+}
+
+pub fn test_compute_butterflies_narrow() {
+    // Some arbitrary complex f32 numbers
+    let mut x: Vec<Complex32> = vec![
+        Complex32::new(0.0, 0.9238795),
+        Complex32::new(-0.000000023849761, -0.9238794),
+        Complex32::new(-1.0, -0.38268343),
+        Complex32::new(1.0, 0.38268384),
+    ];
+
+    // Twiddle factor: `1 + 0i`
+    let (x_0, x_m) = (x[0], x[2]);
+    x[0] = x_0 + x_m;
+    x[2] = x_0 - x_m;
+
+    // Same effect as 'println!("arch[{}]:x = {:?}", ARCH, x);'
+    std::hint::black_box(&x); // <- without this, the below computation is valid?!
+
+    // Twiddle factor: `0 - 1i`
+    let y = x[1] * Complex32::new(0., -1.);
+    // Note(jj): y has to wrong value, sign "flipped" in the imaginary part:
+    // arch[x86_64]:y = -0.9238794+0.000000023849761i versus
+    // arch[xtensa]:y = -0.9238794-0.000000023849761i
+    // .. but only when the above println! or compiler hint (blackbox) is commented in!
+    println!("arch[{}]:y = {}", ARCH, y);
 }
 
 #[cfg(feature = "target-native")]
@@ -76,7 +134,9 @@ fn test_ffw3() {
     assert_eq!(&amplitudes, &[0, 0, 0, 8, 0, 0, 0, 0, 0]);
 }
 
+#[allow(dead_code)]
 fn test_microfft() {
+    // https://github.com/SergiusIW/noisy_float-rs
     let sample_count = 16;
     let signal_freq = 3.;
     let sample_interval = 1. / sample_count as f32;
@@ -106,6 +166,7 @@ fn test_microfft() {
     //assert_eq!(&amplitudes, &[0, 0, 0, 8, 0, 0, 0, 0]);
 }
 
+#[allow(dead_code)]
 fn test_realfft() {
     let sample_count = 16;
     let signal_freq = 3.;
@@ -158,7 +219,11 @@ fn main() {
         println!("Execute FFTW reference on native (e.g. x86) target");
         test_ffw3();
     }
-    test_microfft();
-    test_realfft();
+    //test_compute_butterflies();
+    test_compute_butterflies_narrow();
+
+    //test_microfft();
+    //test_realfft();
+
     loop {}
 }
