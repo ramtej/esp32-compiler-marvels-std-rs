@@ -88,11 +88,11 @@ pub fn test_compute_butterflies_narrow() {
     std::hint::black_box(&x); // <- without this, the below computation is valid?!
 
     // Twiddle factor: `0 - 1i`
-    let y = x[1] * Complex32::new(0., -1.);
-    // Note(jj): y has to wrong value, sign "flipped" in the imaginary part:
-    // arch[x86_64]:y = -0.9238794+0.000000023849761i versus
-    // arch[xtensa]:y = -0.9238794-0.000000023849761i
-    // .. but only when the above println! or compiler hint (blackbox) is commented in!
+    let y = x[1] * Complex32::new(0., -1.); // <- ISSUE HERE!
+                                            // Note(jj): y has to wrong value, sign "flipped" in the imaginary part:
+                                            // arch[x86_64]:y = -0.9238794+0.000000023849761i versus
+                                            // arch[xtensa]:y = -0.9238794-0.000000023849761i
+                                            // .. but only when the above println! or compiler hint (blackbox) is commented in!
     println!("arch[{}]:y = {}", ARCH, y);
 }
 
